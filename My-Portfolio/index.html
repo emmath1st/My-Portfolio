@@ -1,0 +1,912 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Enyovwore Emmanuel | Software Developer, AI & Graphics Specialist</title>
+  <!-- Favicon / demo website icon (simple emoji + data URI fallback) -->
+  <link rel="icon" type="image/png" href="https://emmaconnect.free.nf/emmapot2.png">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%232563eb'/%3E%3Ctext x='50' y='70' font-size='50' text-anchor='middle' fill='white' font-family='Arial'%3E🚀%3C/text%3E%3C/svg%3E">
+  <!-- Google Fonts & Font Awesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* DARK MODE VARIABLES */
+    :root {
+      --bg-body: #f8fafc;
+      --text-primary: #0f172a;
+      --card-bg: #ffffff;
+      --border-light: #eef2ff;
+      --navbar-bg: rgba(255, 255, 255, 0.96);
+      --hero-bg: linear-gradient(135deg, #f1f5f9 0%, #ffffff 100%);
+      --skill-card-bg: #ffffff;
+      --footer-bg: #0f172a;
+      --footer-text: #cbd5e1;
+      --badge-bg: #dbeafe;
+      --badge-text: #1e40af;
+      --input-border: #cbd5e1;
+      --shadow-sm: 0 8px 20px rgba(0,0,0,0.02);
+    }
+
+    body.dark {
+      --bg-body: #0a0f1c;
+      --text-primary: #edf2ff;
+      --card-bg: #111827;
+      --border-light: #1f2937;
+      --navbar-bg: rgba(17, 24, 39, 0.96);
+      --hero-bg: linear-gradient(135deg, #0f172a 0%, #111827 100%);
+      --skill-card-bg: #1e293b;
+      --footer-bg: #020617;
+      --footer-text: #94a3b8;
+      --badge-bg: #1e3a8a;
+      --badge-text: #bfdbfe;
+      --input-border: #334155;
+      --shadow-sm: 0 8px 20px rgba(0,0,0,0.4);
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-body);
+      color: var(--text-primary);
+      scroll-behavior: smooth;
+      line-height: 1.5;
+      transition: background 0.3s ease, color 0.2s ease;
+    }
+
+    /* container utility */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* navigation */
+    .navbar {
+      position: sticky;
+      top: 0;
+      background: var(--navbar-bg);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+      z-index: 1000;
+      border-bottom: 1px solid var(--border-light);
+      padding: 16px 0;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .logo {
+      font-weight: 800;
+      font-size: 1.5rem;
+      background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    /* Hamburger menu styles */
+    .hamburger {
+      display: none;
+      font-size: 1.8rem;
+      background: none;
+      border: none;
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: 0.2s;
+      z-index: 1001;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+      flex-wrap: wrap;
+      align-items: center;
+      transition: all 0.3s ease;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-weight: 600;
+      color: var(--text-primary);
+      transition: 0.2s;
+      font-size: 0.95rem;
+    }
+
+    .nav-links a:hover {
+      color: #2563eb;
+    }
+
+    /* Dark mode toggle button - always visible in header */
+    .dark-toggle {
+      background: var(--card-bg);
+      border: 1px solid var(--border-light);
+      border-radius: 40px;
+      padding: 8px 14px;
+      cursor: pointer;
+      font-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: 0.2s;
+      color: var(--text-primary);
+      margin-left: 8px;
+    }
+    .dark-toggle i {
+      font-size: 1rem;
+    }
+    .dark-toggle:hover {
+      background: #2563eb;
+      color: white;
+      border-color: #2563eb;
+    }
+
+    /* sections */
+    section {
+      padding: 80px 0;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 48px;
+      position: relative;
+      display: inline-block;
+      color: var(--text-primary);
+    }
+    .section-title:after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 60%;
+      height: 4px;
+      background: #3b82f6;
+      border-radius: 4px;
+    }
+
+    /* hero */
+    .hero {
+      background: var(--hero-bg);
+      padding: 60px 0 80px 0;
+      border-bottom: none;
+    }
+    .hero-content {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 48px;
+    }
+    .hero-text {
+      flex: 1;
+    }
+    .hero-text h1 {
+      font-size: 3.2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #0f172a, #2563eb);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      margin-bottom: 16px;
+    }
+    body.dark .hero-text h1 {
+      background: linear-gradient(135deg, #e0f2fe, #60a5fa);
+      background-clip: text;
+      -webkit-background-clip: text;
+    }
+    .hero-badge {
+      background: var(--badge-bg);
+      color: var(--badge-text);
+      padding: 6px 14px;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+    .hero-text p {
+      font-size: 1.1rem;
+      color: var(--text-primary);
+      max-width: 550px;
+      margin: 20px 0;
+      opacity: 0.9;
+    }
+    .contact-info {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      margin: 28px 0;
+    }
+    .contact-info a {
+      text-decoration: none;
+      color: var(--text-primary);
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: color 0.2s;
+    }
+    .contact-info a i {
+      color: #2563eb;
+      font-size: 1.2rem;
+    }
+    .contact-info a:hover {
+      color: #2563eb;
+    }
+    .btn-group {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: #2563eb;
+      color: white;
+      padding: 10px 26px;
+      border-radius: 40px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: none;
+    }
+    .btn-primary:hover {
+      background: #1d4ed8;
+      transform: translateY(-2px);
+    }
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid #2563eb;
+      color: #2563eb;
+      padding: 10px 26px;
+      border-radius: 40px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: 0.2s;
+    }
+    .btn-outline:hover {
+      background: #2563eb;
+      color: white;
+    }
+    .hero-photo {
+      flex: 0.7;
+      display: flex;
+      justify-content: center;
+    }
+    .avatar-frame {
+      width: 280px;
+      height: 280px;
+      background: var(--card-bg);
+      border-radius: 50%;
+      box-shadow: 0 25px 40px -12px rgba(0,0,0,0.2);
+      overflow: hidden;
+      border: 4px solid var(--card-bg);
+    }
+    .avatar-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* skills + cards */
+    .skills-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      margin-top: 20px;
+    }
+    .skill-card {
+      background: var(--skill-card-bg);
+      border-radius: 28px;
+      padding: 24px;
+      flex: 1 1 260px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border-light);
+      transition: 0.2s;
+    }
+    .skill-card i {
+      font-size: 2rem;
+      color: #2563eb;
+      margin-bottom: 16px;
+    }
+    .skill-card h3 {
+      margin-bottom: 12px;
+      font-size: 1.3rem;
+      color: var(--text-primary);
+    }
+    .skill-card p {
+      color: var(--text-primary);
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    /* Graphic design highlight cards */
+    .design-spotlight {
+      margin-top: 48px;
+    }
+    .design-showcase {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: center;
+    }
+    .design-card {
+      background: var(--card-bg);
+      border-radius: 32px;
+      padding: 24px 20px;
+      text-align: center;
+      flex: 1 1 260px;
+      border: 1px solid var(--border-light);
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow-sm);
+    }
+    .design-card i {
+      font-size: 2.6rem;
+      color: #2563eb;
+      margin-bottom: 16px;
+    }
+    .design-card h4 {
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+      color: var(--text-primary);
+    }
+    .design-card p {
+      font-size: 0.85rem;
+      opacity: 0.8;
+      color: var(--text-primary);
+    }
+    .design-card:hover {
+      transform: translateY(-8px);
+      border-color: #3b82f6;
+    }
+
+    /* experience & project timeline */
+    .exp-item, .project-item, .edu-item {
+      background: var(--card-bg);
+      border-radius: 24px;
+      padding: 24px;
+      margin-bottom: 24px;
+      border: 1px solid var(--border-light);
+      transition: all 0.2s;
+    }
+    .exp-header {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+    .exp-title {
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: var(--text-primary);
+    }
+    .exp-company {
+      color: #2563eb;
+      font-weight: 600;
+    }
+    .exp-date {
+      color: var(--text-primary);
+      font-size: 0.85rem;
+      opacity: 0.7;
+    }
+    ul li, p {
+      color: var(--text-primary);
+    }
+    .project-tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 16px 0 0;
+    }
+    .tech-tag {
+      background: #e2e8f0;
+      padding: 4px 12px;
+      border-radius: 40px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #1e293b;
+    }
+    body.dark .tech-tag {
+      background: #334155;
+      color: #e2e8f0;
+    }
+    
+    /* === Live Website Showcase (clickable mockups) === */
+    .website-showcase {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 32px;
+      margin-top: 20px;
+    }
+    .website-card {
+      background: var(--card-bg);
+      border-radius: 28px;
+      overflow: hidden;
+      transition: transform 0.25s ease, box-shadow 0.2s;
+      border: 1px solid var(--border-light);
+      cursor: pointer;
+      text-decoration: none;
+      display: block;
+      color: inherit;
+    }
+    .website-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 30px -12px rgba(0,0,0,0.2);
+      border-color: #3b82f6;
+    }
+    .website-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      background: #e2e8f0;
+      display: block;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .website-info {
+      padding: 20px;
+    }
+    .website-info h3 {
+      font-size: 1.3rem;
+      margin-bottom: 6px;
+    }
+    .website-info p {
+      font-size: 0.85rem;
+      opacity: 0.8;
+    }
+    .live-badge {
+      display: inline-block;
+      background: #10b981;
+      color: white;
+      font-size: 0.7rem;
+      padding: 4px 10px;
+      border-radius: 30px;
+      margin-top: 10px;
+    }
+
+    /* === Mobile View Showcase (phone mockup style) === */
+    .mobile-showcase {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 32px;
+      margin-top: 32px;
+    }
+    .mobile-card {
+      background: var(--card-bg);
+      border-radius: 36px;
+      overflow: hidden;
+      border: 1px solid var(--border-light);
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: block;
+      color: inherit;
+      box-shadow: 0 12px 24px -12px rgba(0,0,0,0.15);
+    }
+    .mobile-card:hover {
+      transform: translateY(-8px);
+      border-color: #3b82f6;
+    }
+    .mobile-phone-frame {
+      background: #111;
+      padding: 12px 10px 10px 10px;
+      border-radius: 32px 32px 28px 28px;
+      position: relative;
+    }
+    .mobile-screen {
+      width: 100%;
+      aspect-ratio: 9 / 19;
+      overflow: hidden;
+      border-radius: 28px;
+      background: #fff;
+    }
+    .mobile-screen img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+      display: block;
+    }
+    .mobile-info {
+      padding: 18px 16px 20px;
+      text-align: center;
+    }
+    .mobile-info h3 {
+      font-size: 1.2rem;
+      margin-bottom: 6px;
+    }
+    .mobile-info p {
+      font-size: 0.8rem;
+      opacity: 0.75;
+    }
+    .mobile-badge {
+      display: inline-block;
+      background: #2563eb;
+      color: white;
+      font-size: 0.7rem;
+      padding: 4px 12px;
+      border-radius: 30px;
+      margin-top: 10px;
+    }
+
+    /* === Graphics Design Gallery (flyers & logos) === */
+    .design-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 28px;
+      margin-top: 32px;
+    }
+    .design-item {
+      background: var(--card-bg);
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid var(--border-light);
+      transition: transform 0.2s;
+    }
+    .design-item:hover {
+      transform: scale(1.02);
+    }
+    .design-item img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+      background: #cbd5e1;
+    }
+    .design-caption {
+      padding: 14px;
+      text-align: center;
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+
+    /* gallery section (existing moments) */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 28px;
+      margin-top: 32px;
+    }
+    .gallery-card {
+      background: var(--card-bg);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.2s;
+      border: 1px solid var(--border-light);
+    }
+    .gallery-card:hover {
+      transform: translateY(-6px);
+    }
+    .gallery-img {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+      background: #cbd5e1;
+      display: block;
+    }
+    .gallery-caption {
+      padding: 16px;
+      font-weight: 500;
+      text-align: center;
+      background: var(--card-bg);
+      color: var(--text-primary);
+    }
+
+    /* footer */
+    footer {
+      background: var(--footer-bg);
+      color: var(--footer-text);
+      padding: 40px 0;
+      text-align: center;
+      border-top: 1px solid var(--border-light);
+    }
+    .footer-social a {
+      color: var(--footer-text);
+      margin: 0 12px;
+      font-size: 1.4rem;
+      transition: color 0.2s;
+      display: inline-block;
+    }
+    .footer-social a:hover {
+      color: #3b82f6;
+    }
+    footer p {
+      color: var(--footer-text);
+    }
+
+    /* mobile responsive */
+    @media (max-width: 768px) {
+      .hero-text h1 { font-size: 2.3rem; }
+      .hero-content { flex-direction: column-reverse; text-align: center; }
+      .contact-info { justify-content: center; }
+      .btn-group { justify-content: center; }
+      .section-title:after { width: 40%; }
+      .hamburger { display: block; }
+      .nav-links {
+        position: fixed;
+        top: 72px;
+        left: -100%;
+        width: 80%;
+        height: calc(100vh - 72px);
+        background: var(--navbar-bg);
+        backdrop-filter: blur(20px);
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 40px 32px;
+        gap: 32px;
+        transition: left 0.3s ease-in-out;
+        box-shadow: 4px 0 20px rgba(0,0,0,0.1);
+        border-right: 1px solid var(--border-light);
+        z-index: 999;
+        overflow-y: auto;
+      }
+      .nav-links.active { left: 0; }
+      .nav-links li { width: 100%; }
+      .nav-links a { font-size: 1.2rem; display: block; width: 100%; padding: 8px 0; }
+      /* Dark toggle inside mobile menu - ensure it's visible */
+      .dark-toggle { 
+        margin-top: 8px; 
+        width: fit-content;
+        display: inline-flex;
+      }
+      .nav-container { flex-wrap: nowrap; justify-content: space-between; }
+    }
+    @media (min-width: 769px) { 
+      .hamburger { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="logo">E.E.Okiemute</div>
+      <button class="hamburger" id="hamburgerBtn" aria-label="Menu"><i class="fas fa-bars"></i></button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#livewebsites">Live Sites</a></li>
+        <li><a href="#mobileviews">Mobile Views</a></li>
+        <li><a href="#designgallery">Designs</a></li>
+        <li><a href="#gallery">Moments</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><button id="darkModeToggle" class="dark-toggle"><i class="fas fa-moon"></i> <span>Dark</span></button></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <!-- HERO -->
+    <section id="home" class="hero">
+      <div class="container hero-content">
+        <div class="hero-text">
+          <span class="hero-badge"><i class="fas fa-code"></i> Software Dev, AI & Graphics Specialist</span>
+          <h1>Enyovwore Emmanuel Okiemute</h1>
+          <p>5+ years of full-stack development, AI integration, and professional graphic design. I build high-performance web apps, automate asset workflows, craft stunning visuals, and deliver pixel-perfect digital experiences.</p>
+          <div class="contact-info">
+            <a href="tel:+2347016400124"><i class="fas fa-phone-alt"></i> +234 701 640 0124</a>
+            <a href="mailto:emma15012@gmail.com"><i class="fas fa-envelope"></i> emma15012@gmail.com</a>
+            <a href="#"><i class="fas fa-map-marker-alt"></i> Maitama, Abuja, Nigeria</a>
+          </div>
+          <div class="btn-group">
+            <a href="#contact" class="btn-primary"><i class="fas fa-paper-plane"></i> Hire Me</a>
+            <a href="#projects" class="btn-outline"><i class="fas fa-folder-open"></i> View Work</a>
+          </div>
+        </div>
+        <div class="hero-photo">
+          <div class="avatar-frame">
+            <img src="emmapot2.png" alt="Emmanuel portrait" onerror="this.src='https://ui-avatars.com/api/?background=1e3a8a&color=fff&name=Emmanuel+E'">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="container">
+        <h2 class="section-title">Professional Summary</h2>
+        <p style="font-size:1.1rem; max-width: 900px; margin-bottom: 32px;">Detail-oriented Software & Web Developer with 5+ years of experience across full-stack development, production workflows, and digital asset management. Proficient in building dynamic websites using PHP, HTML, CSS, Bootstrap, JavaScript, Python, and MySQL with strong focus on database-driven architectures and seamless UX. Integrate AI-driven solutions and custom graphics design to enhance functionality.</p>
+        <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: space-between;">
+          <div style="background:var(--card-bg); border-radius: 28px; padding: 24px; flex:1; border:1px solid var(--border-light);"><i class="fas fa-database" style="font-size: 2rem; color:#2563eb;"></i><h3 style="margin-top:12px;">Full-Stack Mastery</h3><p>PHP, Python, JavaScript, MySQL, responsive frontend, REST APIs, real-time integrations.</p></div>
+          <div style="background:var(--card-bg); border-radius: 28px; padding: 24px; flex:1; border:1px solid var(--border-light);"><i class="fas fa-robot" style="font-size: 2rem; color:#2563eb;"></i><h3 style="margin-top:12px;">AI & Automation</h3><p>AI specialist tools, workflow automation, asset validation, Pandas, reducing errors by 90%.</p></div>
+          <div style="background:var(--card-bg); border-radius: 28px; padding: 24px; flex:1; border:1px solid var(--border-light);"><i class="fas fa-palette" style="font-size: 2rem; color:#2563eb;"></i><h3 style="margin-top:12px;">Graphics & Asset</h3><p>Photoshop, Illustrator, Canva, catalogue production, print/digital delivery, QA pipelines.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+      <div class="container">
+        <h2 class="section-title">Core Competencies</h2>
+        <div class="skills-grid">
+          <div class="skill-card"><i class="fab fa-python"></i><h3>Python / PHP</h3><p>Backend logic, automation scripts, Flask, data processing with Pandas.</p></div>
+          <div class="skill-card"><i class="fab fa-js"></i><h3>JavaScript / ES6</h3><p>Interactive frontends, real-time dashboards, Three.js, WebSockets.</p></div>
+          <div class="skill-card"><i class="fas fa-database"></i><h3>MySQL / PostgreSQL</h3><p>Complex query design, asset linking, data structuring, high performance.</p></div>
+          <div class="skill-card"><i class="fab fa-figma"></i><h3>UI/UX & Design</h3><p>Adobe Suite, Canva, responsive layouts, asset optimization.</p></div>
+          <div class="skill-card"><i class="fas fa-brain"></i><h3>AI Integration</h3><p>Custom AI tools, workflow automation, reducing production bottlenecks.</p></div>
+          <div class="skill-card"><i class="fas fa-chart-line"></i><h3>Cross-Functional</h3><p>Deadline management, supplier collaboration, digital transformation.</p></div>
+        </div>
+        <div class="design-spotlight">
+          <h2 class="section-title" style="margin-top: 24px;">🎨 Graphic Design Highlights</h2>
+          <div class="design-showcase">
+            <div class="design-card"><i class="fas fa-magic"></i><h4>Brand Identity</h4><p>Logo design, brand guidelines, and visual storytelling that capture unique business essence.</p></div>
+            <div class="design-card"><i class="fas fa-book-open"></i><h4>Catalogue Production</h4><p>Print & digital catalogues with 120+ pages, zero revision requests.</p></div>
+            <div class="design-card"><i class="fas fa-adjust"></i><h4>Adobe Mastery</h4><p>Photoshop manipulations, Illustrator vectors, Canva templates for social & marketing.</p></div>
+            <div class="design-card"><i class="fas fa-chalkboard-teacher"></i><h4>Design Training</h4><p>Empowered youth and teachers with practical design skills via hands-on workshops.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WORK EXPERIENCE -->
+    <section id="experience">
+      <div class="container">
+        <h2 class="section-title">Work Experience</h2>
+        <div class="exp-item"><div class="exp-header"><span class="exp-title">Freelance Website Developer</span><span class="exp-company">Great House Christen Center</span><span class="exp-date">Jan 2022 – Present | Remote</span></div><ul style="margin-top:12px; margin-left:20px;"><li>Developed dynamic church website with MySQL backend for events, sermons, member registrations.</li><li>Integrated live-stream platform and secure payment gateway (tithes/offerings) expanding remote congregation reach.</li><li>Perform security updates, SQL injection prevention, SSL, XSS protection ensuring data integrity.</li><li>Delivered computer education & graphics design training using Adobe tools, empowering teachers and youth.</li><li>Set up fully functional school computer lab, hardware installation, networking & system maintenance.</li></ul></div>
+        <div class="exp-item"><div class="exp-header"><span class="exp-title">Junior Software Developer | Intern</span><span class="exp-company">Clicom Networking</span><span class="exp-date">Jun 2017 – Aug 2018 | Osun, Nigeria</span></div><ul style="margin-top:12px; margin-left:20px;"><li>Maintained and updated 20+ client websites (PHP/HTML/CSS/MySQL) ensuring 99.9% uptime.</li><li>Built PHP/MySQL tracking system to resolve 200+ asset inconsistencies monthly, reducing escalations by 28%.</li><li>Engineered batch processing script in Python to automate digital asset preparation for 500+ product listings, cutting pre-production time by 40%.</li></ul></div>
+        <div class="exp-item"><div class="exp-header"><span class="exp-title">Computer Instructor & Lab Setup</span><span class="exp-company">Various Institutions (Community)</span><span class="exp-date">2020 – Present</span></div><ul><li>Hands-on training in computer applications, troubleshooting, and graphics design using Adobe Photoshop/Illustrator/Canva.</li><li>Empowered teachers and youth with digital literacy, basic programming concepts.</li></ul></div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+      <div class="container">
+        <h2 class="section-title">Featured Projects</h2>
+        <div class="project-item"><div class="exp-header"><span class="exp-title">Freelance Product Catalogue Production</span><span class="exp-date">Adobe Suite + Canva</span></div><p>Independently designed 3 catalogues for business clients – managed full pipeline from raw image prep to print/digital delivery. Ensured 120+ product pages with resolution-accurate assets, zero revision requests.</p><div class="project-tech"><span class="tech-tag">Photoshop</span><span class="tech-tag">Illustrator</span><span class="tech-tag">Canva</span><span class="tech-tag">Print Production</span></div></div>
+        <div class="project-item"><div class="exp-header"><span class="exp-title">Automated Asset Validation System</span><span class="exp-date">Python, Pandas, PostgreSQL</span></div><p>Reduced asset-related production errors from 12% → 1.4% across an 8,000+ asset database. Validated file names, paths, formats, resolution specs against master DB, cutting QA cycle from 3 days to 6 hours.</p><div class="project-tech"><span class="tech-tag">Python</span><span class="tech-tag">Pandas</span><span class="tech-tag">PostgreSQL</span><span class="tech-tag">Regex</span></div></div>
+        <div class="project-item"><div class="exp-header"><span class="exp-title">Church Live Streaming & Payment Integration</span><span class="exp-date">PHP, MySQL, WebRTC</span></div><p>Real-time broadcast platform integrated with online giving (Paystack/Flutterwave). Member registration and analytics dashboard for leadership.</p><div class="project-tech"><span class="tech-tag">PHP</span><span class="tech-tag">MySQL</span><span class="tech-tag">JavaScript</span><span class="tech-tag">Payment Gateway</span></div></div>
+      </div>
+    </section>
+
+    <!-- LIVE WEBSITE PROJECTS SECTION (clickable screenshots) -->
+    <section id="livewebsites">
+      <div class="container">
+        <h2 class="section-title">🌐 Live Website Projects</h2>
+        <p style="margin-bottom: 24px;">Click on any mockup to visit the live website fully responsive and functional.</p>
+        <div class="website-showcase">
+          <a href="https://emmaconnect.free.nf/?i=1#experience" target="_blank" class="website-card">
+            <img class="website-img" src="emm.png" alt="Church Platform Demo">
+            <div class="website-info"><h3>Emmanuel's Portfolio Hub</h3><p>Dynamic portfolio & experience showcase.</p><span class="live-badge"><i class="fas fa-external-link-alt"></i> Live Demo</span></div>
+          </a>
+          <a href="https://ghccng.org/" target="_blank" class="website-card">
+            <img class="website-img" src="ghcc.png" alt="E-commerce project">
+            <div class="website-info"><h3>Great House Christian Center</h3><p>Live streaming + CMS.</p><span class="live-badge"><i class="fas fa-external-link-alt"></i> Live Demo</span></div>
+          </a>
+          <a href="https://marfestcare.com/" target="_blank" class="website-card">
+            <img class="website-img" src="maf.png" alt="Business catalogue">
+            <div class="website-info"><h3>Marfestcare</h3><p>Product showcase & digital catalogue.</p><span class="live-badge"><i class="fas fa-external-link-alt"></i> Live Demo</span></div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- NEW: MOBILE VIEW SECTION (phone screenshots of websites) -->
+    <section id="mobileviews">
+      <div class="container">
+        <h2 class="section-title">📱 Mobile View Previews</h2>
+        <p style="margin-bottom: 24px;">Responsive designs look stunning on any device see how websites adapt to mobile screens.</p>
+        <div class="mobile-showcase">
+          <div class="mobile-card">
+            <div class="mobile-phone-frame">
+              <div class="mobile-screen"><img src="m1.jpeg" alt="Mobile view 1"></div>
+            </div>
+            <div class="mobile-info"><h3>Portfolio Mobile</h3><p>Clean responsive layout</p><span class="mobile-badge">📱 Fully Responsive</span></div>
+          </div>
+          <div class="mobile-card">
+            <div class="mobile-phone-frame">
+              <div class="mobile-screen"><img src="m2.jpeg" alt="Mobile view 2"></div>
+            </div>
+            <div class="mobile-info"><h3>Church Platform</h3><p>Mobile-optimized streaming</p><span class="mobile-badge">📱 Mobile Ready</span></div>
+          </div>
+          <div class="mobile-card">
+            <div class="mobile-phone-frame">
+              <div class="mobile-screen"><img src="m3.jpeg" alt="Mobile view 3"></div>
+            </div>
+            <div class="mobile-info"><h3>Marfestcare</h3><p>Smooth mobile navigation</p><span class="mobile-badge">📱 Touch Friendly</span></div>
+          </div>
+          <div class="mobile-card">
+            <div class="mobile-phone-frame">
+              <div class="mobile-screen"><img src="m4.jpeg" alt="Mobile view 4"></div>
+            </div>
+            <div class="mobile-info"><h3>Portfolio</h3><p>Mobile management tools</p><span class="mobile-badge">📱 Dashboard</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GRAPHICS DESIGN GALLERY (flyers + logos) -->
+    <section id="designgallery">
+      <div class="container">
+        <h2 class="section-title">🎨 Graphic Design Portfolio</h2>
+        <p style="margin-bottom: 16px;">Flyers, logos, brand assets — creative work for real clients.</p>
+        <div class="design-gallery">
+          <div class="design-item"><img src="https://picsum.photos/id/104/400/280" alt="flyer design"><div class="design-caption">📢 Event Flyer | Church Conference</div></div>
+          <div class="design-item"><img src="https://picsum.photos/id/1/400/280" alt="logo concept"><div class="design-caption">🏷️ Minimalist Logo Concept</div></div>
+          <div class="design-item"><img src="https://picsum.photos/id/106/400/280" alt="brand identity"><div class="design-caption">🎯 Brand Identity Kit</div></div>
+          <div class="design-item"><img src="https://picsum.photos/id/145/400/280" alt="social media design"><div class="design-caption">📱 Social Media Graphics</div></div>
+          <div class="design-item"><img src="https://picsum.photos/id/20/400/280" alt="catalogue cover"><div class="design-caption">📖 Product Catalogue Cover</div></div>
+          <div class="design-item"><img src="https://picsum.photos/id/30/400/280" alt="custom logo"><div class="design-caption">✨ Custom Logo Suite</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MOMENTS GALLERY (friends) -->
+    <section id="gallery">
+      <div class="container">
+        <h2 class="section-title">Moments & Friends</h2>
+        <p style="margin-bottom:16px;">Teammates, collaborations and creative energy — glimpses of my journey.</p>
+        <div class="gallery-grid">
+          <div class="gallery-card"><img class="gallery-img" src="https://picsum.photos/id/64/400/300" alt="workshop"><div class="gallery-caption">🌟 Tech meetup with friends, Lagos</div></div>
+          <div class="gallery-card"><img class="gallery-img" src="https://picsum.photos/id/155/400/300" alt="coding"><div class="gallery-caption">🤝 Coding session & brainstorming</div></div>
+          <div class="gallery-card"><img class="gallery-img" src="https://picsum.photos/id/169/400/300" alt="weekend"><div class="gallery-caption">☀️ Weekend vibes with crew</div></div>
+          <div class="gallery-card"><img class="gallery-img" src="https://picsum.photos/id/26/400/300" alt="conference"><div class="gallery-caption">🎤 Speaking at DevFest Abuja</div></div>
+          <div class="gallery-card"><img class="gallery-img" src="https://picsum.photos/id/91/400/300" alt="hackathon"><div class="gallery-caption">🏆 Hackathon winners with friends</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="container">
+        <h2 class="section-title">Let’s Connect</h2>
+        <div style="display: flex; flex-wrap: wrap; gap: 40px;">
+          <div style="flex:1.5"><p style="margin-bottom:20px;">I'm always open to discussing software development, AI automation, graphic design collaborations, or creative ventures. Reach out and let's build something great.</p>
+            <div style="display:flex; flex-direction:column; gap:18px;"><div><i class="fas fa-phone-alt" style="width:30px; color:#2563eb;"></i> <strong>Phone:</strong> +234 701 640 0124</div><div><i class="fas fa-envelope" style="width:30px; color:#2563eb;"></i> <strong>Email:</strong> emma15012@gmail.com</div><div><i class="fab fa-linkedin" style="width:30px; color:#2563eb;"></i> <strong>LinkedIn:</strong> /in/enyovwore-emmanuel</div><div><i class="fab fa-github" style="width:30px; color:#2563eb;"></i> <strong>GitHub:</strong> github.com/emma-oki</div></div>
+          </div>
+          <div style="flex:1"><form action="#" style="background:var(--card-bg); padding:24px; border-radius:32px; box-shadow:var(--shadow-sm); border:1px solid var(--border-light);"><input type="text" placeholder="Your Name" style="width:100%; padding:14px; margin-bottom:16px; border:1px solid var(--input-border); border-radius:60px; background:var(--card-bg); color:var(--text-primary);"><input type="email" placeholder="Email Address" style="width:100%; padding:14px; margin-bottom:16px; border:1px solid var(--input-border); border-radius:60px; background:var(--card-bg); color:var(--text-primary);"><textarea rows="4" placeholder="Project idea / Message" style="width:100%; padding:14px; border-radius:24px; border:1px solid var(--input-border); background:var(--card-bg); color:var(--text-primary);"></textarea><button type="button" class="btn-primary" style="margin-top:20px; border:none; cursor:pointer;"><i class="fas fa-paper-plane"></i> Send Message</button></form></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-social"><a href="#"><i class="fab fa-twitter"></i></a><a href="#"><i class="fab fa-linkedin-in"></i></a><a href="#"><i class="fab fa-github"></i></a><a href="#"><i class="fab fa-instagram"></i></a></div>
+      <p style="margin:24px 0 8px;">© 2020-2026 Enyovwore Emmanuel Okiemute — Software Developer, AI & Graphics Specialist</p>
+      <p>Built with <i class="fas fa-heart" style="color:#ef4444;"></i> for innovation, design & performance.</p>
+    </div>
+  </footer>
+
+  <script>
+    const toggleBtn = document.getElementById('darkModeToggle');
+    const body = document.body;
+    const icon = toggleBtn.querySelector('i');
+    const spanText = toggleBtn.querySelector('span');
+    function setDarkMode(isDark) {
+      if (isDark) { body.classList.add('dark'); icon.className = 'fas fa-sun'; spanText.innerText = 'Light'; } 
+      else { body.classList.remove('dark'); icon.className = 'fas fa-moon'; spanText.innerText = 'Dark'; }
+      localStorage.setItem('darkMode', isDark);
+    }
+    const savedMode = localStorage.getItem('darkMode');
+    if (savedMode === 'true') setDarkMode(true);
+    else if (savedMode === 'false') setDarkMode(false);
+    else setDarkMode(window.matchMedia('(prefers-color-scheme: dark)').matches);
+    toggleBtn.addEventListener('click', () => setDarkMode(!body.classList.contains('dark')));
+    const hamburger = document.getElementById('hamburgerBtn');
+    const navLinks = document.getElementById('navLinks');
+    const toggleMenu = () => { navLinks.classList.toggle('active'); const ico = hamburger.querySelector('i'); navLinks.classList.contains('active') ? (ico.classList.remove('fa-bars'), ico.classList.add('fa-times')) : (ico.classList.remove('fa-times'), ico.classList.add('fa-bars')); };
+    hamburger.addEventListener('click', toggleMenu);
+    document.querySelectorAll('.nav-links a').forEach(link => link.addEventListener('click', () => { if (navLinks.classList.contains('active')) toggleMenu(); }));
+    document.querySelector('form button')?.addEventListener('click', () => alert('Thank you! Emmanuel will get back to you soon. (demo interaction)'));
+  </script>
+</body>
+</html>
